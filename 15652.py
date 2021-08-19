@@ -1,0 +1,13 @@
+import sys
+input=sys.stdin.readline
+n,m=map(int,input().split())
+stk=[]
+
+def dfs(stk,start):
+    if len(stk)==m:
+        print(' '.join(map(str,stk)))
+        return
+    for i in range(start,n+1):
+        dfs(stk+[i],i)
+
+dfs(stk,1)
