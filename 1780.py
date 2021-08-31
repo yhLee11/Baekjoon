@@ -1,27 +1,34 @@
-#종이의개수
+import sys
+input=sys.stdin.readline
 n=int(input())
-arr=[]
-for _ in range(n):
-    line=list(map(int,(input().split())))
-    arr.append(line)
-res={-1:0,0:0,1:0}
-
+lst=[list(map(int,input().split())) for _ in range(n)]
+res=[0,0,0]
 def cut(x,y,n):
-    chk=arr[x][y]
+    num=lst[x][y]
+
     for i in range(x,x+n):
         for j in range(y,y+n):
-            if chk!=arr[i][j]:
-                for k in range(3):
-                    for p in range(3):
-                        print(x+n//3*k,y+n//3*p,n//3)
-                        cut(x+n//3*k,y+n//3*p,n//3)
+            if num!=lst[i][j]:
+                cut(x,y,n//3)
+                cut(x,y+n//3,n//3)
+                cut(x,y+n//3*2,n//3)
+
+                cut(x+n//3,y,n//3)
+                cut(x+n//3,y+n//3,n//3)
+                cut(x+n//3,y+n//3*2,n//3)
+
+                cut(x+n//3*2,y,n//3)
+                cut(x+n//3*2,y+n//3,n//3)
+                cut(x+n//3*2,y+n//3*2,n//3)
+
                 return
-    if chk==-1:
-        res[-1]+=1
-    elif chk==0:
+
+    if num==-1:
         res[0]+=1
-    else:
+    elif num==0:
         res[1]+=1
+    else:
+        res[2]+=1
 
 cut(0,0,n)
-print(res)
+for i in res:print(i)
