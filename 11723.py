@@ -1,3 +1,4 @@
+"""https://hooongs.tistory.com/208"""
 import sys
 input=sys.stdin.readline
 S=0

@@ -19,7 +19,7 @@ def dfs(start,tree,parents):
         if parents[i]==-1:#한번도 방문한 적 없으면
             parents[i]=start#부모노드 저장
             dfs(i,tree,parents)
-            
+
 dfs(1,tree,parents)
 for i in range(2,n+1):
     print(parents[i])
