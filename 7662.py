@@ -1,3 +1,7 @@
+"""
+https://esoongan.tistory.com/71
+https://neomindstd.github.io/%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4/boj7662/
+"""
 import sys
 import heapq
 input=sys.stdin.readline
