@@ -45,7 +45,6 @@ for i in range(n):
             start=[i,j]
             sea[i][j]=2
             break
-
 exp=0
 cnt=0
 while True:
