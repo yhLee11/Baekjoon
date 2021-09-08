@@ -12,7 +12,7 @@ res=0
 def dfs(x,y,cnt,num):
     global res
     if cnt==4:
-        res=max(cnt,res)
+        res=max(num,res)
         return
     for i in range(4):
         nx=x+dx[i]
