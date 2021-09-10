@@ -1,4 +1,7 @@
-"""https://deep-learning-study.tistory.com/581"""
+"""
+https://deep-learning-study.tistory.com/581
+https://pacific-ocean.tistory.com/349
+"""
 #dfs
 import sys
 sys.setrecursionlimit(10**6)
