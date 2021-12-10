@@ -1,56 +1,38 @@
-from collections import deque
+from collections import deque, defaultdict
 import sys
 input=sys.stdin.readline
 
 N,M,V=map(int,input().split())
-
-tree={}
-
+graph=defaultdict(list)
 for i in range(M):
-    a,b=map(int,input().split())
-    if a not in tree:
-        tree[a]=[b]
-    else:
-        tree[a]+=[b]
-    if b not in tree:
-        tree[b]=[a]
-    else:
-        tree[b]+=[a]
+    start,end=map(int,input().split())
+    graph[start].append(end)
+    graph[end].append(start)
 
-
-
-def dfs(G,start):
-    stack=[start]
+def dfs(start):#V,하나부터 깊게 탐색
+    stk=deque(sorted(graph[start],reverse=True))#리스트 들어감
     visit=[]
+    visit.append(start)
+    # print(visit,stk)
+    while stk:
+        node=stk.pop()
+        if node not in visit:#방문한적없고,
+            visit.append(node)
+            stk+=sorted(list(set(graph[node])-set(visit)),reverse=True)
+            # print(node,stk)
+    return visit
 
-    while stack:
-        node=stack.pop()
+def bfs(start):
+    que=deque(sorted(graph[start]))
+    visit=[]
+    visit.append(start)
+    # print(visit,que)
+    while que:
+        node=que.popleft()
         if node not in visit:
             visit.append(node)
-            if node in G:
-                print(node)
-                temp=list(set(G[node])-set(visit))
-                temp.sort(reverse=True)
-                print('dfs temp',temp)
-                stack+=temp
-
-    return " ".join(str(i) for i in visit)
-
-def bfs(G,start):
-    dq=deque([start])
-    visit=[]
-
-    while dq:
-        node=dq.popleft()
-        if node not in visit:
-            visit.append(node)
-            if node in G:
-                print(node)
-                temp=list(set(G[node])-set(visit))
-                temp.sort()
-                print('bfs temp',temp)
-                dq+=temp
-    return " ".join(str(i) for i in visit)
-
-print(dfs(tree,V))
-print(bfs(tree,V))
+            que+=sorted(list(set(graph[node])-set(visit)))
+            # print(node,que)
+    return visit
+print(*dfs(V))
+print(*bfs(V))
