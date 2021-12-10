@@ -18,4 +18,4 @@ def five_cnt(n):
         five+=n
     return five
 # print(two_cnt(n),two_cnt(n-m),two_cnt(m))
-print(min(two_cnt(n)-two_cnt(n-m)-two_cnt(m),five_cnt(n)-five_cnt(n-m),five_cnt(m)))
+print(min(two_cnt(n)-two_cnt(n-m)-two_cnt(m),five_cnt(n)-five_cnt(n-m)-five_cnt(m)))
