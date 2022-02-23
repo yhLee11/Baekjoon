@@ -1,6 +1,5 @@
 import sys
 from collections import deque
-from this import d
 input=sys.stdin.readline
 dx=[0,0,1,-1]
 dy=[1,-1,0,0]
@@ -31,6 +30,14 @@ def bfs(i,j):
 cnt=0
 iceberg=0
 while True:
+
+    temp=0
+    for i in range(n):
+        temp+=sum(maps[i])
+    if temp==0:
+        print(0)
+        break
+
     iceberg=0
     visit=[[0]*m for _ in range(n)]
     minus=[[0]*m for _ in range(n)]
@@ -54,11 +61,5 @@ while True:
             maps[i][j]-=minus[i][j]
             if maps[i][j]<0:
                 maps[i][j]=0
-    temp=0
-    for i in range(n):
-        temp+=sum(maps[i])
-    if temp==0:
-        print(0)
-        break
 
     cnt+=1
