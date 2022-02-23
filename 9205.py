@@ -1,34 +1,33 @@
-from re import X
 import sys
 from collections import deque
 input=sys.stdin.readline
-beer=20
+#맨해튼 거리: abs(x2-x1)+abs(y2-y1)
 t=int(input())
-n=int(input())
-dx=[0,0,1,-1]
-dy=[1,-1,0,0]
 
-def bfs(i,j,fesX,fesY):
-    cnt=1
-    q=deque()
-    q.append((i,j))
-    visit=[[0]*fesX for _ in range(fesY)]
-    visit[i][j]=1
-    while q:
-        x,y=q.popleft()
-        for i in range(4):
-            nx=dx[i]+x 
-            ny=dy[i]+y
-            if 0<=nx<fesX and 0<=ny<fesY and not visit[nx][ny]:
-                visit[nx][ny]=1
+def bfs(i,j):
+    dq=deque()
+    dq.append((i,j))
+    while dq:
+        a,b=dq.popleft()
+        if abs(a-festX)+abs(b-festY)<=1000:
+            print("happy")
+            return
+        for i in range(n):
+            if not visit[i]:
+                nx,ny=conv[i]
+                if abs(nx-a)+abs(ny-b)<=1000:
+                    dq.append((nx,ny))
+                    visit[i]=1
                 
-
-for i in range(t):
-    # map=[[0]* for _ in range()]
-    for j in range(n+2):
-        homeX,homeY=map(int,input())
-        for k in range(n):
-            convX,convY=map(int,input())
-
-        fesX,fesY=map(int,input().split())
-    
+    print("sad")        
+    return 
+for _ in range(t):
+    n=int(input())
+    conv=[]#coordinates
+    homeX,homeY=map(int,input().split())
+    for _ in range(n):
+        x,y=map(int,input().split())
+        conv.append([x,y])
+    festX,festY=map(int,input().split())
+    visit=[0 for _ in range(n)]
+    bfs(homeX,homeY)
