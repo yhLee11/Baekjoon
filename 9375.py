@@ -1,19 +1,17 @@
-# from itertools import permutations
-from collections import Counter
 import sys
+from collections import defaultdict
 input=sys.stdin.readline
 tc=int(input())
 
-for i in range(tc):
+for _ in range(tc):
     n=int(input())
-    clothes=[]
-    for j in range(n):
-        line=list(input().split())
-        clothes.append(line[0])
-    cnt=1
-    res=Counter(clothes)
-    # print(res)
+    dic=defaultdict(list)
+    for _ in range(n):
+        item,type=map(str,input().split())
+        dic[type].append(item)
 
-    for k in res:
-        cnt*=res[k]+1
-    print(cnt-1)
+    ans=1
+    for k in dic.keys():
+        ans*=(len(dic[k])+1)
+
+    print(ans-1)
