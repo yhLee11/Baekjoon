@@ -1,5 +1,3 @@
-from dis import dis
-from math import dist
 import sys
 from collections import deque
 input=sys.stdin.readline
@@ -32,6 +30,7 @@ def bfs(i,j,dist):
                     q.append((nx,ny,d+1))
                 if sea[nx][ny]<baby_shark and sea[nx][ny]!=0:
                     stk.append((d+1,nx,ny))#거리,좌표,크기
+
     if stk:
         stk.sort(key=lambda x:(x[0],x[1],x[2]))
         up+=1
@@ -47,16 +46,18 @@ for i in range(n):
         if sea[i][j]==9:#아기상어 발견!
             start=(i,j)
             sea[i][j]=2
-            break 
-moveTime=0            
+            break
+
+moveTime=0         
 while True:
     i,j=start[0],start[1]
     distance,a,b=bfs(i,j,0)
+    
     if distance==-1:
         break
-
+    sea[i][j]=0
     moveTime+=distance
     start=(a,b)
     sea[a][b]=0
-    
+
 print(moveTime)
