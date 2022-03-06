@@ -14,4 +14,7 @@ for k in range(n):
             if city[s][f]>city[s][k]+city[k][f]:
                 city[s][f]=city[s][k]+city[k][f]
 for c in city:
+    for i in range(n):
+        if c[i]==sys.maxsize:
+            c[i]=0
     print(*c)
