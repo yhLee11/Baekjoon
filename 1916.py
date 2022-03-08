@@ -1,29 +1,32 @@
+from collections import defaultdict
+from hashlib import new
 import heapq
 import sys
 input=sys.stdin.readline
 n=int(input())
 m=int(input())
-INF=sys.maxsize
-city=[[] for _ in range(n+1)]
-q=[INF for _ in range(n+1)]
+INF=int(1e9)
+dp=[INF for _ in range(n+1)]
+graph=[[] for _ in range(n+1)]
+
 for _ in range(m):
     a,b,c=map(int,input().split())
-    city[a].append([b,c])
+    graph[a].append([b,c])
 
 start,end=map(int,input().split())
 
 def dijkstra(start):
-    q[start]=0
-    heap=[]
-    heapq.heappush(heap,[0,start])
-    while heap:
-        w,n=heapq.heappop(heap)
-        if q[n]<w:
+    dp[start]=0
+    h=[]
+    heapq.heappush(h,[0,start])#우선순위,값
+    while h:
+        weight,number=heapq.heappop(h)
+        if dp[number]<weight:
             continue
-        for nn,we in city[n]:
-            nw=w+we
-            if q[nn]>nw:
-                q[nn]=nw
-                heapq.heappush(heap,[nw,nn])
+        for g_num,g_wei in graph[number]:
+            new_wei=weight+g_wei
+            if dp[g_num]>new_wei:
+                dp[g_num]=new_wei
+                heapq.heappush(h,[new_wei,g_num])
 dijkstra(start)
-print(q[end])
+print(dp[end])
