@@ -4,7 +4,7 @@
 #1,2 2,3->(2,4),(3,3),(3,4)대각선
 #가로인 경우: 행이 같음, 세로인 경우: 열이 같음
 #대각선인 경우: abs(x2-x1)+abs(y2-y1)=2
-#dfs로 모든 경로 구하기?
+#dfs로 모든 경로 구하기
 import sys
 input=sys.stdin.readline
 n=int(input())
