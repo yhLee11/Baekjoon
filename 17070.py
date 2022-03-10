@@ -13,33 +13,39 @@ start=(0,0)
 end=(0,1)
 cnt=0
 def dfs(start,end):
-    if not 0<=start[0]<n or not 0<=start[0]<n or not 0<=end[0]<n or not 0<=end[1]<n:
-        return 
-    if map[end[0]][end[1]]==1:
-        return
+
     if end==(n-1,n-1):
         global cnt
         cnt+=1
         return
+
     e_right=(end[0],end[1]+1)
     e_diagonal=(end[0]+1,end[1]+1)
     e_bottom=(end[0]+1,end[1])
 
     if start[0]==end[0]:#가로
-        dfs(end,e_right)
-        if 0<=e_right[0]<n and 0<=e_right[1]<n and 0<=e_bottom[0]<n and 0<=e_bottom[1]<n:
-            if map[e_right[0]][e_right[1]]!=1 and map[e_bottom[0]][e_bottom[1]]!=1:
+        if 0<=e_right[0]<n and 0<=e_right[1]<n:
+            if map[e_right[0]][e_right[1]]!=1:
+                dfs(end,e_right)
+        if 0<=e_right[0]<n and 0<=e_right[1]<n and 0<=e_bottom[0]<n and 0<=e_bottom[1]<n and 0<=e_diagonal[0]<n and 0<=e_diagonal[1]<n:
+            if map[e_right[0]][e_right[1]]!=1 and map[e_bottom[0]][e_bottom[1]]!=1 and map[e_diagonal[0]][e_diagonal[1]]!=1:
                 dfs(end,e_diagonal)
     elif start[1]==end[1]:#세로
-        dfs(end,e_bottom)
-        if 0<=e_right[0]<n and 0<=e_right[1]<n and 0<=e_bottom[0]<n and 0<=e_bottom[1]<n:
-            if map[e_right[0]][e_right[1]]!=1 and map[e_bottom[0]][e_bottom[1]]!=1:
+        if 0<=e_bottom[0]<n and 0<=e_bottom[1]<n:
+            if map[e_bottom[0]][e_bottom[1]]!=1:
+                dfs(end,e_bottom)
+        if 0<=e_right[0]<n and 0<=e_right[1]<n and 0<=e_bottom[0]<n and 0<=e_bottom[1]<n and 0<=e_diagonal[0]<n and 0<=e_diagonal[1]<n:
+            if map[e_right[0]][e_right[1]]!=1 and map[e_bottom[0]][e_bottom[1]]!=1 and map[e_diagonal[0]][e_diagonal[1]]!=1:
                 dfs(end,e_diagonal)
     elif abs(start[0]-end[0])+abs(start[1]-end[1])==2:#대각선
-        dfs(end,e_right)
-        dfs(end,e_bottom)
-        if 0<=e_right[0]<n and 0<=e_right[1]<n and 0<=e_bottom[0]<n and 0<=e_bottom[1]<n:
-            if map[e_right[0]][e_right[1]]!=1 and map[e_bottom[0]][e_bottom[1]]!=1:
+        if 0<=e_right[0]<n and 0<=e_right[1]<n:
+            if map[e_right[0]][e_right[1]]!=1:
+                dfs(end,e_right)
+        if 0<=e_bottom[0]<n and 0<=e_bottom[1]<n:
+            if map[e_bottom[0]][e_bottom[1]]!=1:
+                dfs(end,e_bottom)
+        if 0<=e_right[0]<n and 0<=e_right[1]<n and 0<=e_bottom[0]<n and 0<=e_bottom[1]<n and 0<=e_diagonal[0]<n and 0<=e_diagonal[1]<n:
+            if map[e_right[0]][e_right[1]]!=1 and map[e_bottom[0]][e_bottom[1]]!=1 and map[e_diagonal[0]][e_diagonal[1]]!=1:
                 dfs(end,e_diagonal)
 dfs(start,end)
 print(cnt)
