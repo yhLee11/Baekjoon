@@ -1,7 +1,6 @@
 import sys
 import heapq as hq
 from collections import defaultdict
-from turtle import st
 input=sys.stdin.readline
 n,m,x=map(int,input().split())
 graph=defaultdict(dict)
