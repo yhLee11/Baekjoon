@@ -1,39 +1,45 @@
-from collections import deque
 import sys
+from collections import deque
 input=sys.stdin.readline
-visited=[0 for _ in range(101)]
-board=[0 for _ in range(101)]
 
-n,m=map(int,input().split())
+n,m = map(int,input().split())
+ladder = [tuple(map(int,input().split())) for _ in range(n)]
+snake = [tuple(map(int,input().split())) for _ in range(m)]
+dice = [6,5,4,3,2,1]
 
-for _ in range(n):
-    x,y=map(int,input().split())
-    board[x]=y
-for _ in range(m):
-    u,v=map(int,input().split())
-    board[u]=v
-res=0
-dq=deque()
-dq.append((1,0))#시작지점, 주사위횟수
-visited[1]=1
-while dq:
-    node=dq.popleft()
-    if node[0]==100:
-        res=min(res,node[1])
-        continue
+def bfs(info):
+    dq = deque()
+    dq.append(info)
+    visit=[False]*101
+    while dq:
+        start,end,depth=dq.popleft()
+        visit[start]=True
 
-    for i in range(1,7):
-        new=node[0]+i
+        if end==100:
+            print(depth)
+            break
 
-        if new>100:
-            continue
-        if visited[new]==1:
-            continue
+        for i in range(6):
+            nstart = end
+            nend = end + dice[i]
 
-        visited[new]==1
-
-        if board[new]!=0:
-            new=board[new]
-        dq.append((new,node[1]+1))
+            if nend>100: continue
+            # dq.append((nstart,nend,depth+1))
+            if not visit[nstart]:
+                
+                flag=False
+                for l,x in ladder:
+                    if l==nend:
+                        # print('l',l)
+                        dq.append((nstart,x,depth+1))
+                        flag=True
+                for s,x in snake:
+                    if s==nend:
+                        # print('s',s)
+                        dq.append((nstart,x,depth+1))
+                        flag=True
+                if not flag:
+                    dq.append((nstart,nend,depth+1))
         
-print(res)
+    
+bfs((0,1,0))

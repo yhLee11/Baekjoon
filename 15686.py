@@ -23,4 +23,4 @@ for c in cmb:
             h_min=min(h_min,abs(h[0]-ck[0])+abs(h[1]-ck[1]))
         city_len+=h_min
     ans=min(city_len,ans)
-print(ans)
+print(ans)  
