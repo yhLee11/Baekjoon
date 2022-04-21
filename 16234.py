@@ -1,13 +1,12 @@
-from itertools import count
 import sys
 from collections import deque
-from xml.dom import xmlbuilder
 input=sys.stdin.readline
 N,L,R=map(int,input().split())
 country=[list(map(int,input().split())) for _ in range(N)]
 dx=[0,0,1,-1]
 dy=[1,-1,0,0]
 visit=[[False]*N for _ in range(N)]
+flag=False
 def bfs(i,j):
     cnt=1
     move=[(i,j)]
@@ -25,14 +24,22 @@ def bfs(i,j):
                     q.append((nx,ny,c+1))
                     all+=country[nx][ny]
                     move.append((nx,ny))
+    global flag
+    if c==1:flag=True
     num=int(all/c)
     for m1,m2 in move:
         country[m1][m2]=num
 
 flag=False
+ans=0
 while True:
     visit=[[False]*N for _ in range(N)]
     for i in range(N):
         for j in range(N):
             if not visit[i][j]:
                 bfs(i,j)
+                
+    if flag:
+        break
+    ans+=1
+print(ans)
