@@ -6,6 +6,7 @@ graph=[[]*n for _ in range(n+1)]
 for i in range(e):
     a,b,c=map(int,input().split())
     graph[a].append((b,c))
+    graph[b].append([a,c])
 
 v1,v2=map(int,input().split())
 
@@ -27,5 +28,5 @@ def dijkstra(start):#시작 노드
 dist=dijkstra(1)#1->N
 v1_dist=dijkstra(v1)#v1->N
 v2_dist=dijkstra(v2)#v2->N
+print(dist,v1_dist,v2_dist)
 ans=min(dist[v1]+v1_dist[v2]+v2_dist[n],dist[v2]+v2_dist[v1]+v1_dist[n])
-print(ans if ans<INF else -1)
