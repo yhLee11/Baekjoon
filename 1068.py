@@ -1,16 +1,19 @@
 import sys
-def dfs(n,arr):
-    arr[n]=-2
-    for i in range(len(arr)):
-        if n==arr[i]:
-            dfs(i,arr)
+input=sys.stdin.readline
+n=int(input())
+prt=list(map(int,input().split()))
+dnode=int(input())
 
-num=int(sys.stdin.readline())
-arr=list(map(int,sys.stdin.readline().split()))
-k=int(sys.stdin.readline())
-dfs(k,arr)
-cnt=0
-for i in range(len(arr)):
-    if arr[i]!=-2 and i not in arr:#-2가 아니면서 다른 노드의 부모가 아닌 원소
-        cnt+=1
-print(cnt)
+ans=0
+def dfs(prt,dnode):
+    prt[dnode]=-2
+    # print(prt)
+    for i in range(len(prt)):
+        if dnode==prt[i]:
+            dfs(prt,i)
+dfs(prt,dnode)
+ans=0
+for i in prt:
+    if i!=-1 and i!=-2:
+        ans+=1
+print(ans)
