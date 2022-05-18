@@ -1,19 +1,30 @@
 import sys
+from collections import defaultdict as df
 input=sys.stdin.readline
 n=int(input())
 prt=list(map(int,input().split()))
 dnode=int(input())
-
+tree=df(list)
+for i in range(n):
+    if i ==dnode or prt[i]==dnode:
+        continue
+    tree[prt[i]].append(i)
 ans=0
-def dfs(prt,dnode):
-    prt[dnode]=-2
-    # print(prt)
-    for i in range(len(prt)):
-        if dnode==prt[i]:
-            dfs(prt,i)
-dfs(prt,dnode)
-ans=0
-for i in prt:
-    if i!=-1 and i!=-2:
-        ans+=1
-print(ans)
+# print(tree)
+def dfs(node):
+    global ans
+    q=[]
+    q.append(node)
+    while q:
+        nd=q.pop()
+        # print(nd)
+        if nd not in tree:
+            ans+=1
+        else:
+            q.extend(tree[nd])
+        # print(' ',ans)
+    print(ans)
+if -1 in tree:
+    dfs(-1)
+else:
+    print(ans)    
