@@ -1,53 +1,32 @@
 import sys
 from collections import deque
-from copy import deepcopy as dc
 input=sys.stdin.readline
 n,m=map(int,input().split())
-map=[list(map(int,input().strip())) for _ in range(n)]
-wall_lst=[]
-for i in range(n):
-    for j in range(m):
-        if map[i][j]==1:
-            wall_lst.append((i,j))
+s=[list(map(int,input().strip())) for _ in range(n)]
+
 dx=[0,0,1,-1]
 dy=[1,-1,0,0]
-min_ans=sys.maxsize
-def bfs(i,j,d):
+visit=[[[0]*2 for _ in range(m)] for _ in range(n)]
+#visit[x][y][0]: 벽을 뚫지 않고 왔을 때 걸린 거리(시간)을 기록
+#Visit[x][y][1]: 벽을 한 번이라도 뚫고 온 경우 걸린 거리(시간)을 기록
+# 벽을 뚫지 않는 경우 [0]에 거리를 기록하다가 벽을 뚫고 [1]에 거리를 기록
+def bfs(i,j,z):
     q=deque()
-    q.append((i,j,d))
-    distance=0
-    isBreak=False
+    q.append((i,j,z))
+    visit[0][0][0]=1
     while q:
-        x,y,dis=q.popleft()
-        visit[x][y]=True
+        x,y,c=q.popleft()
         if (x,y)==(n-1,m-1):
-            distance=dis
-            break
+            return print(visit[x][y][c])
         for i in range(4):
             nx=dx[i]+x
             ny=dy[i]+y
-            if 0<=nx<n and 0<=ny<m and not visit[nx][ny]:
-                if map[nx][ny]==1:
-                    if not isBreak:
-                        isBreak=True
-                        q.append((nx,ny,dis+1))
-                        visit[nx][ny]=True
-                else:
-                    q.append((nx,ny,dis+1))
-                    visit[nx][ny]=True
-    global min_ans
-    min_ans=min(distance,min_ans)
-    # print(min_ans)
-                
-visit=[[False]*m for _ in range(n)]
-# bfs(0,0,1)
-for wall in wall_lst:
-    visit=[[False]*m for _ in range(n)]
-    n_map=dc(map)
-    n_map[wall[0]][wall[1]]=0
-    bfs(0,0,1)
-if min_ans==0:
-    print(-1)
-else:
-    print(min_ans)
-
+            if 0<=nx<n and 0<=ny<m:
+                if s[nx][ny]==1 and c==0:
+                    visit[nx][ny][1]=visit[x][y][0]+1
+                    q.append((nx,ny,1))
+                elif s[nx][ny]==0 and visit[nx][ny][c]==0:
+                    visit[nx][ny][c]=visit[x][y][c]+1
+                    q.append((nx,ny,c))
+    return print(-1)
+bfs(0,0,0)
