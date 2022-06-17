@@ -27,6 +27,8 @@ for i in range(1,n+1):
     tmp=bfs(i)
     maxcnt=max(maxcnt,tmp)
     res.append((i,tmp))
+ans=[]
 for i,cnt in res:
-    if cnt==maxcnt:
-        print(i,end=' ')
+    if cnt==maxcnt: 
+        ans.append(i)
+print(*ans)
