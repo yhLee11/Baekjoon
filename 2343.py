@@ -15,7 +15,7 @@ def bSearch(left,right):
                 cnt+=1
             else:
                 hap+=lst[i]
-        if hap:
+        if hap:#아직 남은게 있으면
             cnt+=1
 
         if cnt>m:
