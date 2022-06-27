@@ -8,17 +8,21 @@ def bSearch(left,right):
     while left<=right:
         mid=(left+right)//2
         cnt=0
-        sum=0
+        hap=0
         for i in range(len(lst)):
-            if sum+lst[i]>mid:
+            if hap+lst[i]>mid:
+                hap=lst[i]
                 cnt+=1
-                sum=0  
-        if sum:
+            else:
+                hap+=lst[i]
+        if hap:
             cnt+=1
+
         if cnt>m:
             left=mid+1
         else:
-            ans=min(ans,mid)
             right=mid-1
-bSearch(max(lst),sum(lst))        
+            ans=min(ans,mid)
+        
+bSearch(max(lst),sum(lst))
 print(ans)
