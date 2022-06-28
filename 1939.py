@@ -9,6 +9,7 @@ for _ in range(m):
     weight[b].append((a,c))
 s,e=map(int,input().split())
 
+#bfs: s->e 까지의 최단 경로
 def bfs(mid):
     global s,e
     q=deque()
@@ -16,24 +17,24 @@ def bfs(mid):
     visit=[False]*(n+1)
     visit[s]=True
     while q:
-        node=q.popleft()
-        for x,w in weight[node]:
-            if not visit[x] and w>=mid:
-                visit[x]=True
-                q.append(x)
+        cur=q.popleft()
+        for nxt,wet in weight[cur]:
+            if not visit[nxt] and wet>=mid:
+                visit[nxt]=True
+                q.append(nxt)
     if visit[e]:
         return True
     else:
         return False
-_min=1
-_max=1000000000
-res=_min
-while _min<=_max:
-    mid=(_min+_max)//2
-    if bfs(mid):
-        res=mid
-        _min=mid+1
-    else:
-        _max=mid-1
-print(res)
 
+min=1
+max=1000000000
+ans=0
+while min<=max:
+    mid=(min+max)//2
+    if bfs(mid):
+        ans=mid
+        min=mid+1
+    else:
+        max=mid-1
+print(ans)
