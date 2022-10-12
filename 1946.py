@@ -1,18 +1,18 @@
 import sys
-t=int(sys.stdin.readline())
-
-for i in range(t):
-    n=int(sys.stdin.readline())
+input=sys.stdin.readline
+T=int(input())
+for _ in range(T):
+    N=int(input())
     lst=[]
-    s,m=map(int,sys.stdin.readline().split())
     cnt=1
-    lst.append((s,m))#처음들어온 사람이 1순위
-    max=lst[0][1]
-    lst.sort()
-    for j in range(n):
-        s,m=map(int,sys.stdin.readline().split())
-        lst.append((s,m))
-        if max>lst[j+1][1]:
+    for _ in range(N):
+        a,b=map(int,input().split())
+        lst.append([a,b])
+    lst.sort(key=lambda x:x[0])
+    # print(lst)
+    tmp=lst[0][1]
+    for i in range(1,N):
+        if tmp>lst[i][1]:#1등보다 높은 면접 점수
+            tmp=lst[i][1]
             cnt+=1
-            max=lst[j+1][1]
-        print(cnt)
+    print(cnt)
